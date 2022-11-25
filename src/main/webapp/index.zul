@@ -1,0 +1,12 @@
+<zk>
+	<window apply="br.estudos.controller.LoginController" width="100%"
+		height="100%">
+
+		<vbox align="center" pack="center" width="100%" height="100%">
+			<label style="font-size: 20pt">PATRIMÔNIOS</label>
+			<textbox placeholder="Usuário"></textbox>
+			<textbox placeholder="Senha" type="password"></textbox>
+			<button id="btnLogin">Login</button>
+		</vbox>
+	</window>
+</zk>
