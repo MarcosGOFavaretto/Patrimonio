@@ -1,19 +1,23 @@
 package br.estudos.controller;
 
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.select.SelectorComposer;
-import org.zkoss.zk.ui.select.annotation.Listen;
-import org.zkoss.zul.Window;
+import java.security.InvalidParameterException;
 
-/*
- * TODO: Estudar o Composer da ZK.
- */
-public class LoginController extends SelectorComposer<Window> {
+public class LoginController {
 
-	private static final long serialVersionUID = 8701183894738754988L;
+	public static boolean onLogin(String usuario, String senha) {
 
-	@Listen("onClick = #btnLogin")
-	public void onLogin(Event event) {
-		System.out.println("Um evento de login foi iniciado!");
+		if (ControllerUtils.isStringVazia(usuario))
+			throw new InvalidParameterException("O usuário informado para o Login não é válido!");
+
+		if (ControllerUtils.isStringVazia(senha))
+			throw new InvalidParameterException("A senha informada para o Login não é válida!");
+
+		if (usuario.equals("marcosfavaretto.dev@gmail.com") && senha.equals("123456")) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
+
 }
