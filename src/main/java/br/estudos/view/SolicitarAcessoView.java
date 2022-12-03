@@ -8,13 +8,11 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Space;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
 
-import br.estudos.controller.ViewUtils;
 import br.estudos.controller.SolicitarAcessoController;
 
-public class SolicitarAcessoView extends Window implements EventListener<Event> {
+public class SolicitarAcessoView extends JanelaPadraoCentralizada implements EventListener<Event> {
 
 	private static final long serialVersionUID = -1044867849762050282L;
 
@@ -24,21 +22,9 @@ public class SolicitarAcessoView extends Window implements EventListener<Event> 
 	private Textbox txtSenha = null;
 	private Textbox txtConfirmacaoSenha = null;
 
-	public SolicitarAcessoView() {
+	public SolicitarAcessoView(Window win) {
 
-		Vbox layoutVerticalDaJanela = new Vbox();
-		layoutVerticalDaJanela.setWidth(ViewUtils.CEM_POR_CENTO);
-		layoutVerticalDaJanela.setHeight(ViewUtils.CEM_POR_CENTO);
-		layoutVerticalDaJanela.setAlign(ViewUtils.CENTRO);
-		layoutVerticalDaJanela.setPack(ViewUtils.CENTRO);
-		this.appendChild(layoutVerticalDaJanela);
-
-		Vbox layoutVerticalCentralizado = new Vbox();
-		layoutVerticalCentralizado.setWidth(ViewUtils.CINQUENTA_POR_CENTO);
-		layoutVerticalCentralizado.setHeight(ViewUtils.CEM_POR_CENTO);
-		layoutVerticalCentralizado.setAlign(ViewUtils.CENTRO);
-		layoutVerticalCentralizado.setPack(ViewUtils.CENTRO);
-		layoutVerticalDaJanela.appendChild(layoutVerticalCentralizado);
+		super(win);
 
 		Label lblTitulo = new Label("SOLICITAR ACESSO");
 		lblTitulo.setStyle("font-size: 20pt");

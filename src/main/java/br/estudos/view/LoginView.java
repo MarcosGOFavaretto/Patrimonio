@@ -1,5 +1,6 @@
 package br.estudos.view;
 
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -8,37 +9,23 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Space;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
 
 import br.estudos.controller.LoginController;
-import br.estudos.controller.ViewUtils;
 
-public class LoginView extends Window implements EventListener<Event> {
+public class LoginView extends JanelaPadraoCentralizada implements EventListener<Event> {
 
 	private static final long serialVersionUID = -2692789362289500811L;
 
 	private Textbox txtEmail = null;
 	private Textbox txtSenha = null;
+
 	private LoginController controller = null;
 
-	public LoginView() {
+	public LoginView(Window win) {
 
+		super(win);
 		controller = new LoginController();
-
-		Vbox layoutVerticalDaJanela = new Vbox();
-		layoutVerticalDaJanela.setWidth(ViewUtils.CEM_POR_CENTO);
-		layoutVerticalDaJanela.setHeight(ViewUtils.CEM_POR_CENTO);
-		layoutVerticalDaJanela.setAlign(ViewUtils.CENTRO);
-		layoutVerticalDaJanela.setPack(ViewUtils.CENTRO);
-		this.appendChild(layoutVerticalDaJanela);
-
-		Vbox layoutVerticalCentralizado = new Vbox();
-		layoutVerticalCentralizado.setWidth(ViewUtils.CINQUENTA_POR_CENTO);
-		layoutVerticalCentralizado.setHeight(ViewUtils.CEM_POR_CENTO);
-		layoutVerticalCentralizado.setAlign(ViewUtils.CENTRO);
-		layoutVerticalCentralizado.setPack(ViewUtils.CENTRO);
-		layoutVerticalDaJanela.appendChild(layoutVerticalCentralizado);
 
 		Label lblTitulo = new Label("REALIZAR ACESSO");
 		lblTitulo.setStyle("font-size: 20pt");
@@ -79,9 +66,10 @@ public class LoginView extends Window implements EventListener<Event> {
 					Messagebox.show("Usuário não reconhecido!");
 
 				if (isAdministrador) {
-					controller.onAcessoAdminstrador();
+					ViewUtils.removerItensDaJanela(getWindow());
+					for (Component componente : new AdministradorLoginView(getWindow()).getChildren())
+						getWindow().appendChild(componente);
 				}
-				
 
 			}
 

@@ -10,6 +10,7 @@ import org.zkoss.zul.Window;
 
 import br.estudos.view.LoginView;
 import br.estudos.view.SolicitarAcessoView;
+import br.estudos.view.ViewUtils;
 
 /*
  * TODO: Estudar o Composer da ZK.
@@ -26,14 +27,14 @@ public class IndexController extends SelectorComposer<Window> {
 	@Listen("onClick = #btnPossuoAcesso")
 	public void onPossuirAcesso(Event event) {
 		ViewUtils.removerItensDaJanela(win);
-		for (Component componente : new LoginView().getChildren())
+		for (Component componente : new LoginView(win).getChildren())
 			win.appendChild(componente);
 	}
 
 	@Listen("onClick = #btnSolicitarAcesso")
 	public void onSolicitarAcesso(Event event) {
 		ViewUtils.removerItensDaJanela(win);
-		for (Component componente : new SolicitarAcessoView().getChildren())
+		for (Component componente : new SolicitarAcessoView(win).getChildren())
 			win.appendChild(componente);
 	}
 

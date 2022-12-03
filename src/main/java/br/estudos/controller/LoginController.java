@@ -3,6 +3,7 @@ package br.estudos.controller;
 import java.security.InvalidParameterException;
 
 import br.estudos.model.Usuario;
+import br.estudos.view.ViewUtils;
 
 public class LoginController {
 
@@ -16,8 +17,11 @@ public class LoginController {
 		if (ViewUtils.isStringVazia(senha))
 			throw new InvalidParameterException("A senha informada não é válida!");
 
-		if (email.equals("marcosfavaretto.dev@gmail.com") && senha.equals("123456")) {
+		if (email.equals("user") && senha.equals("user")) {
 			this.setUsuario(new Usuario());
+			return true;
+		} else if (email.equals("admin") && senha.equals("admin")) {
+			this.setUsuario(new Usuario(true));
 			return true;
 		} else {
 			return false;
