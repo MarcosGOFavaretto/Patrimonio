@@ -5,7 +5,7 @@ import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zul.Window;
 
-public class ControllerUtils {
+public class ViewUtils {
 
 	/** Constantes */
 	public static final String CEM_POR_CENTO = "100%";

@@ -10,10 +10,9 @@ import org.zkoss.zul.Space;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.impl.MessageboxDlg;
 
-import br.estudos.controller.ControllerUtils;
 import br.estudos.controller.LoginController;
+import br.estudos.controller.ViewUtils;
 
 public class LoginView extends Window implements EventListener<Event> {
 
@@ -21,20 +20,24 @@ public class LoginView extends Window implements EventListener<Event> {
 
 	private Textbox txtEmail = null;
 	private Textbox txtSenha = null;
+	private LoginController controller = null;
 
 	public LoginView() {
+
+		controller = new LoginController();
+
 		Vbox layoutVerticalDaJanela = new Vbox();
-		layoutVerticalDaJanela.setWidth(ControllerUtils.CEM_POR_CENTO);
-		layoutVerticalDaJanela.setHeight(ControllerUtils.CEM_POR_CENTO);
-		layoutVerticalDaJanela.setAlign(ControllerUtils.CENTRO);
-		layoutVerticalDaJanela.setPack(ControllerUtils.CENTRO);
+		layoutVerticalDaJanela.setWidth(ViewUtils.CEM_POR_CENTO);
+		layoutVerticalDaJanela.setHeight(ViewUtils.CEM_POR_CENTO);
+		layoutVerticalDaJanela.setAlign(ViewUtils.CENTRO);
+		layoutVerticalDaJanela.setPack(ViewUtils.CENTRO);
 		this.appendChild(layoutVerticalDaJanela);
 
 		Vbox layoutVerticalCentralizado = new Vbox();
-		layoutVerticalCentralizado.setWidth(ControllerUtils.CINQUENTA_POR_CENTO);
-		layoutVerticalCentralizado.setHeight(ControllerUtils.CEM_POR_CENTO);
-		layoutVerticalCentralizado.setAlign(ControllerUtils.CENTRO);
-		layoutVerticalCentralizado.setPack(ControllerUtils.CENTRO);
+		layoutVerticalCentralizado.setWidth(ViewUtils.CINQUENTA_POR_CENTO);
+		layoutVerticalCentralizado.setHeight(ViewUtils.CEM_POR_CENTO);
+		layoutVerticalCentralizado.setAlign(ViewUtils.CENTRO);
+		layoutVerticalCentralizado.setPack(ViewUtils.CENTRO);
 		layoutVerticalDaJanela.appendChild(layoutVerticalCentralizado);
 
 		Label lblTitulo = new Label("REALIZAR ACESSO");
@@ -69,13 +72,16 @@ public class LoginView extends Window implements EventListener<Event> {
 		if (tipoEvento.equals(Events.ON_CLICK)) {
 
 			if (idComponente.equals("btnRealizarLogin")) {
-				boolean isUsuarioReconhecido = LoginController.onLogin(txtEmail.getValue(), txtSenha.getValue());
+				boolean isUsuarioReconhecido = controller.onLogin(txtEmail.getValue(), txtSenha.getValue());
+				boolean isAdministrador = controller.isAdministrador();
 
-				if (isUsuarioReconhecido) {
-					Messagebox.show("Usuário reconhecido!");
-				} else {
+				if (!isUsuarioReconhecido)
 					Messagebox.show("Usuário não reconhecido!");
+
+				if (isAdministrador) {
+					controller.onAcessoAdminstrador();
 				}
+				
 
 			}
 

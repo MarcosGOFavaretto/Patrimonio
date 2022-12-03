@@ -25,14 +25,14 @@ public class IndexController extends SelectorComposer<Window> {
 
 	@Listen("onClick = #btnPossuoAcesso")
 	public void onPossuirAcesso(Event event) {
-		ControllerUtils.removerItensDaJanela(win);
+		ViewUtils.removerItensDaJanela(win);
 		for (Component componente : new LoginView().getChildren())
 			win.appendChild(componente);
 	}
 
 	@Listen("onClick = #btnSolicitarAcesso")
 	public void onSolicitarAcesso(Event event) {
-		ControllerUtils.removerItensDaJanela(win);
+		ViewUtils.removerItensDaJanela(win);
 		for (Component componente : new SolicitarAcessoView().getChildren())
 			win.appendChild(componente);
 	}

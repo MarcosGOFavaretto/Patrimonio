@@ -5,32 +5,39 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Space;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
 
-import br.estudos.controller.ControllerUtils;
+import br.estudos.controller.ViewUtils;
 import br.estudos.controller.SolicitarAcessoController;
 
 public class SolicitarAcessoView extends Window implements EventListener<Event> {
 
 	private static final long serialVersionUID = -1044867849762050282L;
 
+	/** Campos */
+	private Textbox txtNome = null;
+	private Textbox txtEmail = null;
+	private Textbox txtSenha = null;
+	private Textbox txtConfirmacaoSenha = null;
+
 	public SolicitarAcessoView() {
 
 		Vbox layoutVerticalDaJanela = new Vbox();
-		layoutVerticalDaJanela.setWidth(ControllerUtils.CEM_POR_CENTO);
-		layoutVerticalDaJanela.setHeight(ControllerUtils.CEM_POR_CENTO);
-		layoutVerticalDaJanela.setAlign(ControllerUtils.CENTRO);
-		layoutVerticalDaJanela.setPack(ControllerUtils.CENTRO);
+		layoutVerticalDaJanela.setWidth(ViewUtils.CEM_POR_CENTO);
+		layoutVerticalDaJanela.setHeight(ViewUtils.CEM_POR_CENTO);
+		layoutVerticalDaJanela.setAlign(ViewUtils.CENTRO);
+		layoutVerticalDaJanela.setPack(ViewUtils.CENTRO);
 		this.appendChild(layoutVerticalDaJanela);
 
 		Vbox layoutVerticalCentralizado = new Vbox();
-		layoutVerticalCentralizado.setWidth(ControllerUtils.CINQUENTA_POR_CENTO);
-		layoutVerticalCentralizado.setHeight(ControllerUtils.CEM_POR_CENTO);
-		layoutVerticalCentralizado.setAlign(ControllerUtils.CENTRO);
-		layoutVerticalCentralizado.setPack(ControllerUtils.CENTRO);
+		layoutVerticalCentralizado.setWidth(ViewUtils.CINQUENTA_POR_CENTO);
+		layoutVerticalCentralizado.setHeight(ViewUtils.CEM_POR_CENTO);
+		layoutVerticalCentralizado.setAlign(ViewUtils.CENTRO);
+		layoutVerticalCentralizado.setPack(ViewUtils.CENTRO);
 		layoutVerticalDaJanela.appendChild(layoutVerticalCentralizado);
 
 		Label lblTitulo = new Label("SOLICITAR ACESSO");
@@ -41,25 +48,25 @@ public class SolicitarAcessoView extends Window implements EventListener<Event> 
 
 		Label lblDescricao = new Label();
 		lblDescricao.setValue(
-				"Para ter acesso ao sistema, por favor, preencha os campos abaixo e clique no botão \"Solicitar acesso\". Após o envio de seus dados, aguarde até que um administrador aceite a sua solicitação. Quando isso ocorrer, você receberá uma notificação no e-mail.");
+				"Para ter acesso ao sistema, por favor, preencha os campos abaixo e clique no botão \"Solicitar acesso\". Após o envio de seus dados, aguarde até que um administrador aceite a sua solicitação.");
 		layoutVerticalCentralizado.appendChild(lblDescricao);
 
 		layoutVerticalCentralizado.appendChild(new Space());
 
-		Textbox txtNome = new Textbox();
+		txtNome = new Textbox();
 		txtNome.setPlaceholder("Nome");
 		layoutVerticalCentralizado.appendChild(txtNome);
 
-		Textbox txtEmail = new Textbox();
+		txtEmail = new Textbox();
 		txtEmail.setPlaceholder("Email");
 		layoutVerticalCentralizado.appendChild(txtEmail);
 
-		Textbox txtSenha = new Textbox();
+		txtSenha = new Textbox();
 		txtSenha.setPlaceholder("Senha");
 		txtSenha.setType("password");
 		layoutVerticalCentralizado.appendChild(txtSenha);
 
-		Textbox txtConfirmacaoSenha = new Textbox();
+		txtConfirmacaoSenha = new Textbox();
 		txtConfirmacaoSenha.setPlaceholder("Confirmação da Senha");
 		txtConfirmacaoSenha.setType("password");
 		layoutVerticalCentralizado.appendChild(txtConfirmacaoSenha);
@@ -82,7 +89,15 @@ public class SolicitarAcessoView extends Window implements EventListener<Event> 
 		if (tipoEvento.equals(Events.ON_CLICK)) {
 
 			if (idComponente.equals("btnCriarSolicitacao")) {
-				SolicitarAcessoController.onCriarSolicitacao(event);
+				boolean isSolicitacaoCriada = SolicitarAcessoController.onCriarSolicitacao(
+						txtNome.getValue(),
+						txtEmail.getValue(),
+						txtSenha.getValue(),
+						txtConfirmacaoSenha.getValue()
+				);
+
+				if (isSolicitacaoCriada)
+					Messagebox.show("Solicitação criada!");
 			}
 
 		}
