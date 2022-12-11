@@ -18,10 +18,10 @@ public class LoginController {
 			throw new InvalidParameterException("A senha informada não é válida!");
 
 		if (email.equals("user") && senha.equals("user")) {
-			this.setUsuario(new Usuario());
+			this.setUsuario(new Usuario("User", "Igreja 1"));
 			return true;
 		} else if (email.equals("admin") && senha.equals("admin")) {
-			this.setUsuario(new Usuario(true));
+			this.setUsuario(new Usuario("Admin", null, true));
 			return true;
 		} else {
 			return false;
@@ -43,6 +43,14 @@ public class LoginController {
 
 		return false;
 
+	}
+
+	public String getIgreja() {
+
+		if (usuario != null)
+			return usuario.getIgreja();
+
+		return null;
 	}
 
 	public Usuario getUsuario() {

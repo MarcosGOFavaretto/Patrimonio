@@ -11,8 +11,9 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import br.estudos.controller.SolicitarAcessoController;
+import br.estudos.view.components.ComboboxIgrejas;
 
-public class SolicitarAcessoView extends JanelaPadraoCentralizada implements EventListener<Event> {
+public class SolicitarAcessoView extends JanelaPadrao implements EventListener<Event> {
 
 	private static final long serialVersionUID = -1044867849762050282L;
 
@@ -24,7 +25,7 @@ public class SolicitarAcessoView extends JanelaPadraoCentralizada implements Eve
 
 	public SolicitarAcessoView(Window win) {
 
-		super(win);
+		super(win, true);
 
 		Label lblTitulo = new Label("SOLICITAR ACESSO");
 		lblTitulo.setStyle("font-size: 20pt");
@@ -57,6 +58,10 @@ public class SolicitarAcessoView extends JanelaPadraoCentralizada implements Eve
 		txtConfirmacaoSenha.setType("password");
 		layoutVerticalCentralizado.appendChild(txtConfirmacaoSenha);
 
+		ComboboxIgrejas cmbIgrejas = new ComboboxIgrejas();
+		cmbIgrejas.setWidth("33%");
+		layoutVerticalCentralizado.appendChild(cmbIgrejas);
+		
 		layoutVerticalCentralizado.appendChild(new Space());
 
 		Button btnCriarSolicitacao = new Button("Criar Solicitação");

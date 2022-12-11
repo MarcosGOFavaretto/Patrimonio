@@ -1,29 +1,29 @@
 package br.estudos.view;
 
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Space;
 import org.zkoss.zul.Window;
 
 import br.estudos.controller.AdministradorLoginController;
+import br.estudos.model.Usuario;
+import br.estudos.view.components.ComboboxIgrejas;
 
-public class AdministradorLoginView extends JanelaPadraoCentralizada implements EventListener<Event> {
+public class AdministradorLoginView extends JanelaPadrao implements EventListener<Event> {
 
 	private static final long serialVersionUID = -376686657139317562L;
-
-	private static final int PRIMEIRA_OPCAO_DE_IGREJA = 0;
 
 	private AdministradorLoginController controller = null;
 	private Combobox cmbIgrejas = null;
 
-	public AdministradorLoginView(Window win) {
-		super(win);
-		controller = new AdministradorLoginController();
+	public AdministradorLoginView(Window win, Usuario usuario) {
+		super(win, true);
+		this.controller = new AdministradorLoginController(usuario);
 
 		Label lblTitulo = new Label("REALIZAR ACESSO COMO ADMINISTRADOR");
 		lblTitulo.setStyle("font-size: 20pt");
@@ -37,12 +37,7 @@ public class AdministradorLoginView extends JanelaPadraoCentralizada implements 
 
 		layoutVerticalCentralizado.appendChild(new Space());
 
-		cmbIgrejas = new Combobox();
-		cmbIgrejas.appendItem("Igreja 1");
-		cmbIgrejas.appendItem("Igreja 2");
-		cmbIgrejas.appendItem("Igreja 3");
-		cmbIgrejas.appendItem("Paróquia");
-		cmbIgrejas.setSelectedIndex(PRIMEIRA_OPCAO_DE_IGREJA);
+		cmbIgrejas = new ComboboxIgrejas();
 		layoutVerticalCentralizado.appendChild(cmbIgrejas);
 
 		layoutVerticalCentralizado.appendChild(new Space());
@@ -65,12 +60,14 @@ public class AdministradorLoginView extends JanelaPadraoCentralizada implements 
 
 				String igrejaSelecionada = cmbIgrejas.getValue();
 				if (controller.onRealizarAcesso(igrejaSelecionada))
-					// TODO: Chamar a tela principal.
-					Messagebox.show("Logando como \"" + igrejaSelecionada + "\"");
+					ViewUtils.removerItensDaJanela(getWindow());
+				for (Component componente : new PrincipalView(getWindow(), controller.getUsuario()).getChildren())
+					getWindow().appendChild(componente);
 
 			}
 
 		}
 
 	}
+	
 }

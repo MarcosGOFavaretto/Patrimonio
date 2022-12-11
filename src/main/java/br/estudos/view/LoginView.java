@@ -13,7 +13,7 @@ import org.zkoss.zul.Window;
 
 import br.estudos.controller.LoginController;
 
-public class LoginView extends JanelaPadraoCentralizada implements EventListener<Event> {
+public class LoginView extends JanelaPadrao implements EventListener<Event> {
 
 	private static final long serialVersionUID = -2692789362289500811L;
 
@@ -24,7 +24,7 @@ public class LoginView extends JanelaPadraoCentralizada implements EventListener
 
 	public LoginView(Window win) {
 
-		super(win);
+		super(win, true);
 		controller = new LoginController();
 
 		Label lblTitulo = new Label("REALIZAR ACESSO");
@@ -35,11 +35,13 @@ public class LoginView extends JanelaPadraoCentralizada implements EventListener
 
 		txtEmail = new Textbox();
 		txtEmail.setPlaceholder("Email");
+		txtEmail.setValue("admin");
 		layoutVerticalCentralizado.appendChild(txtEmail);
 
 		txtSenha = new Textbox();
 		txtSenha.setPlaceholder("Senha");
 		txtSenha.setType("password");
+		txtSenha.setValue("admin");
 		layoutVerticalCentralizado.appendChild(txtSenha);
 
 		layoutVerticalCentralizado.appendChild(new Space());
@@ -67,7 +69,11 @@ public class LoginView extends JanelaPadraoCentralizada implements EventListener
 
 				if (isAdministrador) {
 					ViewUtils.removerItensDaJanela(getWindow());
-					for (Component componente : new AdministradorLoginView(getWindow()).getChildren())
+					for (Component componente : new AdministradorLoginView(getWindow(), controller.getUsuario()).getChildren())
+						getWindow().appendChild(componente);
+				} else {
+					ViewUtils.removerItensDaJanela(getWindow());
+					for (Component componente : new PrincipalView(getWindow(), controller.getUsuario()).getChildren())
 						getWindow().appendChild(componente);
 				}
 
