@@ -2,6 +2,8 @@ package br.estudos.controller;
 
 import java.security.InvalidParameterException;
 
+import br.estudos.view.ViewUtils;
+
 public class SolicitarAcessoController {
 
 	public static boolean onCriarSolicitacao(String nome, String email, String senha, String confirmacao) throws Exception {

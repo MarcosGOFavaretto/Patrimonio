@@ -1,4 +1,4 @@
-package br.estudos.controller;
+package br.estudos.view;
 
 import java.util.List;
 
