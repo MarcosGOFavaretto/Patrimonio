@@ -1,5 +1,6 @@
 package br.estudos.view;
 
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -87,8 +88,22 @@ public class SolicitarAcessoView extends JanelaPadrao implements EventListener<E
 						txtConfirmacaoSenha.getValue()
 				);
 
-				if (isSolicitacaoCriada)
-					Messagebox.show("Solicitação criada!");
+				if (isSolicitacaoCriada) {
+					Messagebox.show(
+							"Sua solicitação foi enviada aos administradores, aguarde a sua liberação, você será avisado no e-mail.",
+							"Solicitação criada!",
+							Messagebox.OK,
+							Messagebox.INFORMATION,
+							Messagebox.OK,
+							new EventListener<Event>() {
+								@Override
+								public void onEvent(Event event) throws Exception {
+									Executions.getCurrent().sendRedirect("/index.zul");
+								}
+							}
+					);
+					
+				}
 			}
 
 		}
