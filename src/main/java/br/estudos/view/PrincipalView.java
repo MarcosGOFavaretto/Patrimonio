@@ -56,7 +56,7 @@ public class PrincipalView extends JanelaPadrao implements EventListener<Event> 
 		Tab tituloAba = new Tab("Igreja");
 		titulosAbas.appendChild(tituloAba);
 
-		tituloAba = new Tab("Objetos Litúrgicos");
+		tituloAba = new Tab("Objetos Litï¿½rgicos");
 		titulosAbas.appendChild(tituloAba);
 
 		tituloAba = new Tab("Cozinha (Itens Grandes)");
@@ -65,7 +65,7 @@ public class PrincipalView extends JanelaPadrao implements EventListener<Event> 
 		tituloAba = new Tab("Cozinha (Itens Pequenos)");
 		titulosAbas.appendChild(tituloAba);
 
-		tituloAba = new Tab("Salão/Salas");
+		tituloAba = new Tab("Salï¿½o/Salas");
 		titulosAbas.appendChild(tituloAba);
 
 		Toolbar barraFerramentas = new Toolbar();
@@ -85,7 +85,7 @@ public class PrincipalView extends JanelaPadrao implements EventListener<Event> 
 
 		btnSair = new Toolbarbutton();
 		btnSair.setTooltiptext("Sair");
-		btnSair.setIconSclass("z-icon-sign-out-alt");
+		btnSair.setIconSclass("z-icon-home");
 		btnSair.addEventListener(Events.ON_CLICK, this);
 		barraFerramentas.appendChild(btnSair);
 
@@ -105,7 +105,7 @@ public class PrincipalView extends JanelaPadrao implements EventListener<Event> 
 		Rows linhas = new Rows();
 		layoutTabela.appendChild(linhas);
 
-		final String[] nomesColunas = new String[] { "Código", "Descrição", "Preço", "Quantidade", "Entradas", "Saídas",
+		final String[] nomesColunas = new String[] { "Cï¿½digo", "Descriï¿½ï¿½o", "Preï¿½o", "Quantidade", "Entradas", "Saï¿½das",
 				"", "", "" };
 
 		for (String nomeColuna : nomesColunas) {
@@ -153,28 +153,28 @@ public class PrincipalView extends JanelaPadrao implements EventListener<Event> 
 		abas.appendChild(aba);
 
 		layoutTabela = new Grid();
-		layoutTabela.setEmptyMessage("Não há registros");
+		layoutTabela.setEmptyMessage("Nï¿½o hï¿½ registros");
 		aba.appendChild(layoutTabela);
 
 		aba = new Tabpanel();
 		abas.appendChild(aba);
 
 		layoutTabela = new Grid();
-		layoutTabela.setEmptyMessage("Não há registros");
+		layoutTabela.setEmptyMessage("Nï¿½o hï¿½ registros");
 		aba.appendChild(layoutTabela);
 
 		aba = new Tabpanel();
 		abas.appendChild(aba);
 
 		layoutTabela = new Grid();
-		layoutTabela.setEmptyMessage("Não há registros");
+		layoutTabela.setEmptyMessage("Nï¿½o hï¿½ registros");
 		aba.appendChild(layoutTabela);
 
 		aba = new Tabpanel();
 		abas.appendChild(aba);
 
 		layoutTabela = new Grid();
-		layoutTabela.setEmptyMessage("Não há registros");
+		layoutTabela.setEmptyMessage("Nï¿½o hï¿½ registros");
 		aba.appendChild(layoutTabela);
 
 	}
@@ -191,7 +191,9 @@ public class PrincipalView extends JanelaPadrao implements EventListener<Event> 
 			if (componenteDoEvento.equals(btnConfigurar)) {
 				mensagem = "Configurando";
 			} else if (componenteDoEvento.equals(btnAdicionar)) {
-				mensagem = "Adicionando";
+				AddRecordView addRecordWindow = new AddRecordView();
+				addRecordWindow.doModal();
+				return;
 			} else if (componenteDoEvento.equals(btnSair)) {
 				Executions.getCurrent().sendRedirect("/index.zul");
 				return;
