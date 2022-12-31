@@ -7,15 +7,15 @@ public class PrincipalController {
 	private Usuario usuario = null;
 
 	public PrincipalController(Usuario usuario) {
-		this.setUsuario(usuario);
+		this.usuario = usuario;
+	}
+
+	public void onAddRecord() {
+		
 	}
 
 	public Usuario getUsuario() {
 		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 }
